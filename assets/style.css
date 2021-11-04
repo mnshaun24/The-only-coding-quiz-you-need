@@ -1,0 +1,26 @@
+/* keep quiz content in the center of the screen */
+.quiz-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+
+.main-words h1{
+    font-weight: bold;
+    font-size: 60px;
+}
+
+.main-words p {
+    font-size: 40px;
+}
+
+.main-slide button {
+    background-color: blue;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+}
+
+
