@@ -1,3 +1,11 @@
+/* position and display timer correctly */
+#timer {
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+    color: blue;
+}
+
 /* keep quiz content in the center of the screen */
 .quiz-content {
     display: flex;
