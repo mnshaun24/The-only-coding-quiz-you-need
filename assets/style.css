@@ -15,16 +15,12 @@
     min-height: 100vh;
   }
 
-.main-words h1{
+.quiz-slides{
     font-weight: bold;
-    font-size: 60px;
+    font-size: 50px;
 }
 
-.main-words p {
-    font-size: 40px;
-}
-
-.main-slide button {
+.quiz-options {
     background-color: blue;
     border-radius: 10px;
     font-size: 16px;
