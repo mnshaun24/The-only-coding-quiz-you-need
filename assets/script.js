@@ -105,13 +105,14 @@ var showNext = function() {
     // create container div to display four option buttons
     var btnContainerEl = document.createElement("div");
     btnContainerEl.className = "quiz-options";
+    document.getElementByClassName("quiz-options").appendChild(btnContainerEl);
 
     // create each button option
     var btnOption1 = document.createElement("button");
-    edit
+    btnOption1.textContent = "hello";
+    btnContainerEl.appendChild(btnOption1);
 
-
-}
+};
 
 
 
