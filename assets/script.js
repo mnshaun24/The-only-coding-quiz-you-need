@@ -1,37 +1,50 @@
-var startQuiz = true;
-
 // create score variables
+var highScoreList = document.getElementById("high-score");
+
 var highScore = 0
 
 var saveScore = function() {
     localStorage.setItem("High Score", highScore);
 }
-// end score variables
 
+// populate high scores elements
 
-// Create button series
-
-// button click captures the button string
-
-var optionSelect = function () {
-    addEventListener("click", function () {
-        console.log(this.getAttribute("value"));
-
-    });
+var highScoreDisplay = function() {
+    var highScorePlayer = document.createElement("div");
+    
 }
 
-// compare captured string to correctAnswer string and determine if answer is correct
-var checkAnswer = function(input) {
-    if (input == correctAnswer) {
-        
+// check input button click against correct answer
+
+var answerQuestion = function(optionText) {
+    console.log("answerQuestion starting");
+    if (optionText === quizQuestions[questionIndex].correctAnswer) {
+        timeLeft = timeLeft +10  
+        console.log("great job")      
     }
-}
+    else {
+        timeLeft = timeLeft -10
+        console.log("try again")
+    };
+    showNext();
+};
 
-// correct answer increases time and incorrect score decreases time
+// previous item goes away and new item displays
 
-var questionIndex = 0
+var clearAll = function() {
+document.getElementById("quiz-stem").innerHTML = "";
+document.getElementById("quiz-options").innerHTML= "";
+};
+
+// value is set to -1 so that the original start button begins at array = 0
+var questionIndex = -1
 
 var quizQuestions = [
+    {
+        question: "Welcome to The Only Coding Quiz You Need. Try to complete all the questions before time runs out. Compete for a high score.",
+        answers: ["Start!"],
+        correctAnswer:"Start!"
+    },
     {  
        question: "What serves as a collection of random pieces of related information?",
        answers: ["Argument", "Method", "Array", "Function"],
@@ -82,66 +95,85 @@ var quizQuestions = [
 // create function to cycle through questions in array
 var showNext = function() { 
 
-    // advance quiz to next slide
-    questionIndex++
+    if (questionIndex < 9 ) {
 
-    // make sure new stem appears with content from array
-    var questionTextEl = document.createElement("div");
-    questionTextEl.textContent = quizQuestions[questionIndex].question;
-    questionTextEl.className = "quiz-slides";
-    document.getElementById("quiz-stem").appendChild(questionTextEl);
-    // update score 
-    // use remove to remove the created div
+        clearAll();
 
-    // create container div to display four option buttons
-    var btnContainerEl = document.createElement("div");
-    btnContainerEl.className = "btn-container";
-    document.getElementById("quiz-options").appendChild(btnContainerEl);
+        // advance quiz to next slide
+        questionIndex++
 
-    // create each button option
-    var btnOption1 = document.createElement("button");
-    btnOption1.textContent = quizQuestions[questionIndex].answers[0];
-    btnContainerEl.appendChild(btnOption1);
-    btnOption1.className = "button-setup";
+        // make sure new stem appears with content from array
+        var questionTextEl = document.createElement("div");
+        questionTextEl.textContent = quizQuestions[questionIndex].question;
+        questionTextEl.className = "quiz-slides";
+        document.getElementById("quiz-stem").appendChild(questionTextEl);
+        questionTextEl.id = "createdStemText";
+        // use remove to remove the created div
 
-    var btnOption2 = document.createElement("button");
-    btnOption2.textContent = quizQuestions[questionIndex].answers[1];
-    btnContainerEl.appendChild(btnOption2);
-    btnOption2.className = "button-setup";
+        // create container div to display four option buttons
+        var btnContainerEl = document.createElement("div");
+        btnContainerEl.className = "btn-container";
+        document.getElementById("quiz-options").appendChild(btnContainerEl);
 
+        // create each button option
+        var btnOption1 = document.createElement("button");
+        btnOption1.textContent = quizQuestions[questionIndex].answers[0];
+        btnContainerEl.appendChild(btnOption1);
+        btnOption1.className = "button-setup";
+        btnOption1.id = "btn1";
+        btnOption1.addEventListener("click", function() {
+            answerQuestion(btnOption1.innerHTML);
+        });
 
-    var btnOption3 = document.createElement("button");
-    btnOption3.textContent = quizQuestions[questionIndex].answers[2];
-    btnContainerEl.appendChild(btnOption3);
-    btnOption3.className = "button-setup";
+        var btnOption2 = document.createElement("button");
+        btnOption2.textContent = quizQuestions[questionIndex].answers[1];
+        btnContainerEl.appendChild(btnOption2);
+        btnOption2.className = "button-setup";
+        btnOption2.id = "btn2";
+        btnOption2.addEventListener("click", function() {
+            answerQuestion(btnOption2.innerHTML)
+        });
 
+        var btnOption3 = document.createElement("button");
+        btnOption3.textContent = quizQuestions[questionIndex].answers[2];
+        btnContainerEl.appendChild(btnOption3);
+        btnOption3.className = "button-setup";
+        btnOption3.id = "btn3";
+        btnOption3.addEventListener("click", function() {
+            answerQuestion(btnOption3.innerHTML)
+        });
 
-    var btnOption4 = document.createElement("button");
-    btnOption4.textContent = quizQuestions[questionIndex].answers[3];
-    btnContainerEl.appendChild(btnOption4);
-    btnOption4.className = "button-setup";
-
-    addEventListener("click", optionSelect());
+        var btnOption4 = document.createElement("button");
+        btnOption4.textContent = quizQuestions[questionIndex].answers[3];
+        btnContainerEl.appendChild(btnOption4);
+        btnOption4.className = "button-setup";
+        btnOption4.id = "btn4";
+        btnOption4.addEventListener("click", function() {
+            answerQuestion(btnOption4.innerHTML)
+        });
+    }
+    else {
+        saveScore();
+        clearAll();
+        clearInterval(countdownTimer);
+        console.log("we did it!");
+        highScoreList.style.display = "flex";
+    }
 };
-
 
 showNext();
 
-
-// set up high score function
-
 // set up quiz timer. I got the following simple code idea from https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown
-// var timeLeft = 45
-// var countdownTimer = setInterval(function() {
-//     if(timeLeft <= 0){
-//         clearInterval(countdownTimer);
-//         window.alert("Time is up!");
-//         return highScore;
-//     }
-//     else {
-//         document.getElementById("timer").innerHTML = timeLeft + " seconds remaining";
-//     }
-//     timeLeft --;
-// }, 1000);
-
-// things I don't know how to do: 1) advance on click guessing clickevent == correctAnswer 2) how to advance I get error on .question 3) 
+var timeLeft = 45
+var countdownTimer = setInterval(function() {
+    if(timeLeft <= 0){
+        clearInterval(countdownTimer);
+            clearAll();
+        window.alert("Time is up!");
+        highScoreList.style.display = "flex";
+    }
+    else {
+        document.getElementById("timer").innerHTML = timeLeft + " seconds remaining";
+    }
+    timeLeft --;
+}, 1000);
