@@ -15,16 +15,20 @@
     min-height: 100vh;
   }
 
-.quiz-slides{
+.quiz-slides {
     font-weight: bold;
     font-size: 50px;
 }
 
-.quiz-options {
-    background-color: blue;
-    border-radius: 10px;
-    font-size: 16px;
-    color: white;
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
 
+.button-setup {
+    font-size: 30px;
+    background-color: skyblue;
+}
 
