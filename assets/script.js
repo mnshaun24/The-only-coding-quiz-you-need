@@ -1,7 +1,7 @@
 // create score variables
 var highScoreList = document.getElementById("high-score");
 
-var highScore = 0
+var highScore = JSON.stringify(timeLeft);
 
 var saveScore = function() {
     localStorage.setItem("High Score", highScore);
@@ -9,10 +9,16 @@ var saveScore = function() {
 
 // populate high scores elements
 
+
+
 var highScoreDisplay = function() {
+    localStorage.getItem("playerName");
+    localStorage.getItem("timeLeft");
     var highScorePlayer = document.createElement("div");
-    
-}
+    highScorePlayer.setAttribute = ("High Score", timeLeft);
+    highScorePlayer.setAttribute = ("Name". playerName);
+    document.getElementById("high-score").appendChild(highScorePlayer);
+};
 
 // check input button click against correct answer
 
@@ -156,8 +162,11 @@ var showNext = function() {
         saveScore();
         clearAll();
         clearInterval(countdownTimer);
-        console.log("we did it!");
+        var playerName = window.prompt("Please enter your initials.");
+        localStorage.setItem("playerName", playerName);
+        localStorage.setItem("timeLeft", timeLeft);
         highScoreList.style.display = "flex";
+        highScoreDisplay();
     }
 };
 
