@@ -15,7 +15,7 @@ To build a quiz using JavaScript utilizing the DOM and local storage
 https://mnshaun24.github.io/The-only-coding-quiz-you-need/
 
 ## Screenshot
-![Coding Quiz](.images/assets/images/Screenshot.PNG)
+![Coding Quiz](.Assets/Images/Screenshot.PNG)
 
 ## Contribution
 Shaun Sticka
